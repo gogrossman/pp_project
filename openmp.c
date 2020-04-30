@@ -1,12 +1,15 @@
+// Created by Gavin Grossman & Spencer Bao on 4/30/20.
+
 #include <omp.h>
 #include <stdlib.h>
 #include <stdio.h>
 
-int points_per_thread = 20;
-int threads = 2;
+int points_per_thread = 10000;
+//int threads = 2;
+// export OMP_NUM_THREADS=2;
 
 int compute_pi(){
-    int hits;
+    int hits = 0;
     double x_coord, y_coord;
     for (int i = 0; i < points_per_thread; i++){
         x_coord = (double) rand() / (RAND_MAX) - 0.5;
@@ -19,13 +22,15 @@ int compute_pi(){
 }
 int main(){
     
-    double total_hits;
-
-    #pragma omp parallel num_threads(threads) reduction(+:total_hits)
+    double total_hits = 0.0;
+    int threads; 
+    #pragma omp parallel reduction(+:total_hits)
     {
+        threads = omp_get_num_threads();
         total_hits += compute_pi();
     }
-
+    //printf("%lf\n", total_hits);
+    //printf("%d\n", threads);
     printf("%lf\n", 4*total_hits/(points_per_thread*threads));
 
     return 0;
