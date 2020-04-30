@@ -91,19 +91,21 @@ void *producer(void *pno)
 
 void *consumer(void *cno)
 {
-    while(counter < 10) {
+    while(counter < 10 || isEmpty() == false) {
+        pthread_mutex_lock(&task_queue_lock);
         if (isEmpty() == false) {
-            pthread_mutex_lock(&task_queue_lock);
             int spot = full_space();
             int item = task_queue[spot];
             task_queue[spot] = 0;
             printf("Consumer %d: Remove Item %d from %d\n", *((int *) cno), item, spot);
+            
             if (*((int *) cno) == 1) {
                 one++;
             }else{
                 two++;
             }
-            pthread_mutex_unlock(&task_queue_lock);
+            
         }
+      pthread_mutex_unlock(&task_queue_lock);  
     }
 }
