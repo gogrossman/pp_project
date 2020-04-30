@@ -1,5 +1,5 @@
 //
-// Created by Gavin Grossman on 4/30/20.
+// Created by Gavin Grossman & Spencer Bao on 4/30/20.
 //
 
 #include <pthread.h>
@@ -8,16 +8,21 @@
 #include <stdbool.h>
 
 
+
 int task_queue[2] = {0, 0};
 pthread_mutex_t task_queue_lock;
 int one = 0;
 int two = 0;
 int counter = 0;
+int limit;
 
 void *producer (void *);
 void *consumer (void *);
 
-int main() {
+int main(int argc, char* argv[]) {
+    
+    limit = atoi(argv[1]);
+    //printf("%d", limit);
 
     pthread_t pro[1],con[2];
     pthread_mutex_init(&task_queue_lock, NULL);
@@ -76,7 +81,7 @@ int full_space() {
 void *producer(void *pno)
 {
     int item;
-    while(counter < 10) {
+    while(counter < limit) {
         item = rand(); // Produce an random item
         if (isFull() == false) {
             pthread_mutex_lock(&task_queue_lock);
@@ -91,7 +96,7 @@ void *producer(void *pno)
 
 void *consumer(void *cno)
 {
-    while(counter < 10 || isEmpty() == false) {
+    while(counter < limit || isEmpty() == false) {
         pthread_mutex_lock(&task_queue_lock);
         if (isEmpty() == false) {
             int spot = full_space();
