@@ -15,7 +15,7 @@ int compute_pi(){
     int hits = 0;
     int points_per_thread = randSample();
     double x_coord, y_coord;
-    for (int i = 0; i < points_per_thread(); i++){
+    for (int i = 0; i < points_per_thread; i++){
         x_coord = (double) rand() / (RAND_MAX) - 0.5;
         y_coord = (double) rand() / (RAND_MAX) - 0.5;
         if ((x_coord * x_coord + y_coord * y_coord) < 0.25){
