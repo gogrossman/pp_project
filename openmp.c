@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+int total_points = 0;
+
 int randSample() {
     int r = (rand() % (1200000 + 1 - 800000) + 800000);
     total_points += r;
@@ -28,7 +30,6 @@ int compute_pi(){
 
 int main(){
 
-    int total_points = 0;
     double total_hits = 0.0;
     int threads; 
     #pragma omp parallel reduction(+:total_hits)
