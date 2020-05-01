@@ -5,7 +5,7 @@
 #include <stdio.h>
 
 int randSample() {
-    int r = (rand() % 1000001);
+    int r = (rand() % (1200000 + 1 - 800000) + 800000);
     total_points += r;
     return r;
 }
