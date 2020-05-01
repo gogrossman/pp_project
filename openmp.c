@@ -6,6 +6,7 @@
 
 int randSample() {
     int r = (rand() % 1000001);
+    total points += r;
     return r;
 }
 //int threads = 2;
@@ -25,7 +26,8 @@ int compute_pi(){
     return hits;
 }
 int main(){
-    
+
+    int total_points = 0;
     double total_hits = 0.0;
     int threads; 
     #pragma omp parallel reduction(+:total_hits)
@@ -36,7 +38,7 @@ int main(){
     }
     //printf("%lf\n", total_hits);
     //printf("%d\n", threads);
-    printf("%lf\n", 4*total_hits/(points_per_thread*threads));
+    printf("%lf\n", 4*total_hits/(total_points));
 
     return 0;
 }
