@@ -7,12 +7,10 @@
 int total_points = 0;
 
 int randSample() {
-    int r = (rand() % (1200000 + 1 - 800000) + 800000);
+    int r = (rand() % (1000000 + 1 - 500000) + 500000);
     total_points += r;
     return r;
 }
-//int threads = 2;
-// export OMP_NUM_THREADS=2;
 
 int compute_pi(){
     int hits = 0;
@@ -37,8 +35,6 @@ int main(){
         threads = omp_get_num_threads();
         total_hits += compute_pi();
     }
-    //printf("%lf\n", total_hits);
-    //printf("%d\n", threads);
     printf("%lf\n", 4*total_hits/(total_points));
 
     return 0;

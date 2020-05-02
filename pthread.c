@@ -8,7 +8,6 @@
 #include <stdbool.h>
 
 
-
 int task_queue[2] = {0, 0};
 pthread_mutex_t task_queue_lock;
 int one = 0;
@@ -22,12 +21,11 @@ void *consumer (void *);
 int main(int argc, char* argv[]) {
     
     limit = atoi(argv[1]);
-    //printf("%d", limit);
 
     pthread_t pro[1],con[2];
     pthread_mutex_init(&task_queue_lock, NULL);
 
-    int a[2] = {1,2}; //Just used for numbering the producer and consumer
+    int a[2] = {1,2};
 
     pthread_create(&pro[0], NULL, (void *)producer, (void *)&a[0]);
     for(int i = 0; i < 2; i++) {
